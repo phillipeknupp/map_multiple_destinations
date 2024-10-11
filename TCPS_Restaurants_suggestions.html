@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_5cef3760d38e4654159f999479649b9c {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+<div style="position: fixed; 
+            top: 10px; left: 50%; transform: translateX(-50%); width: auto; max-width: 100%; height: auto; 
+            background-color: white; opacity: 0.8; padding: 10px; 
+            border-radius: 5px; border: 2px solid black; z-index: 1000; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);">
+    <h3 style="margin: 0; text-align: center;">Restaurant Suggestions for Lunch Near Petrobras</h3>
+    <p style="margin: 0; font-size: 10px; text-align: center;">Considering walking paths from Petrobras Praia do Canto</p>
+</div>
+    
+<div style="position: fixed; 
+            bottom: 30px; left: 50%; transform: translateX(-50%); width: 90%; 
+            max-width: 400px; height: auto; 
+            background-color: white; opacity: 0.8; padding: 10px; 
+            border-radius: 5px; border: 2px solid black; z-index: 2000; text-align: center; overflow-y: auto; max-height: 150px;">
+    <h4 style="margin: 0; font-size: 12px; text-align: center;"><strong>Petrobras EDIVIT</strong></h4>
+    <div style="font-size: 12px; text-align: center;">
+        <i style="color: blue;">&#x25CF;</i> PETROBRAS Praia do Canto Entrance<br>
+    </div>
+    <h4 style="margin: 0; font-size: 12px;"><strong>Restaurant Pin Colours</strong></h4>
+
+        <div style="font-size: 12px; text-align: center; margin: 2px;"><i style="color: green;">&#x25CF;</i> Mais Opção - Self Service</div>
+    
+        <div style="font-size: 12px; text-align: center; margin: 2px;"><i style="color: orange;">&#x25CF;</i> Aleixo Restaurante - À la carte</div>
+    
+        <div style="font-size: 12px; text-align: center; margin: 2px;"><i style="color: blue;">&#x25CF;</i> Coco Bambu - À la carte</div>
+    
+        <div style="font-size: 12px; text-align: center; margin: 2px;"><i style="color: purple;">&#x25CF;</i> O Quintal Parrilla Bar - À la carte</div>
+    
+        <div style="font-size: 12px; text-align: center; margin: 2px;"><i style="color: red;">&#x25CF;</i> Cantina D'Itália - À la carte</div>
+    
+        <div style="font-size: 12px; text-align: center; margin: 2px;"><i style="color: green;">&#x25CF;</i> Canto do Vinho - À la carte</div>
+    
+        <div style="font-size: 12px; text-align: center; margin: 2px;"><i style="color: orange;">&#x25CF;</i> Partido Alto - À la carte</div>
+    
+        <div style="font-size: 12px; text-align: center; margin: 2px;"><i style="color: blue;">&#x25CF;</i> Enseada Geraldinho - Fishes and Seafood</div>
+    
+    <h4 style="margin: 0; font-size: 10px; text-align: center;">Developed by Luiz Perfeito</h4>
+    <h4 style="margin: 0; font-size: 10px; text-align: center;">Copyright © 2024 SPE Brazil TCP Symposium</h4>
+</div>
+    
+            <div class="folium-map" id="map_5cef3760d38e4654159f999479649b9c" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_5cef3760d38e4654159f999479649b9c = L.map(
+                "map_5cef3760d38e4654159f999479649b9c",
+                {
+                    center: [-20.296466245186764, -40.29775607559714],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 14,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_184cdb86d021e787bddbe09e81b8822d = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_184cdb86d021e787bddbe09e81b8822d.addTo(map_5cef3760d38e4654159f999479649b9c);
+        
+    
+            var marker_9c3b02baa303b151fea23a407097c59c = L.marker(
+                [-20.296466245186764, -40.29775607559714],
+                {}
+            ).addTo(map_5cef3760d38e4654159f999479649b9c);
+        
+    
+            var icon_21ac23f0557904cff548fc3949c61e2f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_9c3b02baa303b151fea23a407097c59c.setIcon(icon_21ac23f0557904cff548fc3949c61e2f);
+        
+    
+        var popup_d499035badaa79e2b378389abae997ed = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_3ff90759865800183170d37e5a5710cf = $(`<div id="html_3ff90759865800183170d37e5a5710cf" style="width: 100.0%; height: 100.0%;"><div style="text-align: center; width: 300px;"><strong style="font-size: 16px;">PETROBRAS<br>Praia do Canto Entrance </strong></div></div>`)[0];
+                popup_d499035badaa79e2b378389abae997ed.setContent(html_3ff90759865800183170d37e5a5710cf);
+            
+        
+
+        marker_9c3b02baa303b151fea23a407097c59c.bindPopup(popup_d499035badaa79e2b378389abae997ed)
+        ;
+
+        
+    
+    
+            var marker_6c64ed82ccc4bb0d8c05fcae0453cfea = L.marker(
+                [-20.29864782052567, -40.29431604848897],
+                {}
+            ).addTo(map_5cef3760d38e4654159f999479649b9c);
+        
+    
+            var icon_58a60e02dc3577e775d27debdf6d4b2c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_6c64ed82ccc4bb0d8c05fcae0453cfea.setIcon(icon_58a60e02dc3577e775d27debdf6d4b2c);
+        
+    
+        var popup_aae9c9745e0a67da8a38681ee41999c0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_7d00b38ccb65f6a86aa312d9b990da26 = $(`<div id="html_7d00b38ccb65f6a86aa312d9b990da26" style="width: 100.0%; height: 100.0%;"><div style="text-align: center; width: 300px;"><strong style="font-size: 16px;">Mais Opção <br> Phone: <a href='tel:+5527981465206'>(27)98146-5206</a> <br> Instagram: <a href='https://www.instagram.com/maisopcaorestaurante'>@maisopcaorestaurante</a></strong></div></div>`)[0];
+                popup_aae9c9745e0a67da8a38681ee41999c0.setContent(html_7d00b38ccb65f6a86aa312d9b990da26);
+            
+        
+
+        marker_6c64ed82ccc4bb0d8c05fcae0453cfea.bindPopup(popup_aae9c9745e0a67da8a38681ee41999c0)
+        ;
+
+        
+    
+    
+            var poly_line_4b9f42eed3ec9149351066c7f96e0cfe = L.polyline(
+                [[-20.296523, -40.297333], [-20.296584, -40.297322], [-20.29663, -40.297287], [-20.296856, -40.296995], [-20.297079, -40.296705], [-20.297113, -40.296693], [-20.29714, -40.296668], [-20.297156, -40.296635], [-20.297159, -40.296599], [-20.29715, -40.296564], [-20.297677, -40.29577], [-20.298301, -40.294786], [-20.298338, -40.294784], [-20.298371, -40.294768], [-20.298397, -40.294742], [-20.298413, -40.294709], [-20.298417, -40.294673], [-20.298411, -40.294638], [-20.29863, -40.294303]],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "green", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 5}
+            ).addTo(map_5cef3760d38e4654159f999479649b9c);
+        
+    
+            var marker_292c9cea8eead463dd7f2514aee8edbc = L.marker(
+                [-20.29702069864795, -40.2936767401787],
+                {}
+            ).addTo(map_5cef3760d38e4654159f999479649b9c);
+        
+    
+            var icon_fe1a395256178ba4cd327465f8e3158e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_292c9cea8eead463dd7f2514aee8edbc.setIcon(icon_fe1a395256178ba4cd327465f8e3158e);
+        
+    
+        var popup_5d77f1f37304df3aec94e1f7b28a867e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9d388fdf3358bd59e24bd8dc0ffa6a7d = $(`<div id="html_9d388fdf3358bd59e24bd8dc0ffa6a7d" style="width: 100.0%; height: 100.0%;"><div style="text-align: center; width: 300px;"><strong style="font-size: 16px;">Aleixo Restaurante <br> Phone: <a href='tel:+5527992430657'>(27) 99243-0657</a> <br> Instagram: <a href='https://www.instagram.com/aleixorestaurante'>@aleixorestaurante</a></strong></div></div>`)[0];
+                popup_5d77f1f37304df3aec94e1f7b28a867e.setContent(html_9d388fdf3358bd59e24bd8dc0ffa6a7d);
+            
+        
+
+        marker_292c9cea8eead463dd7f2514aee8edbc.bindPopup(popup_5d77f1f37304df3aec94e1f7b28a867e)
+        ;
+
+        
+    
+    
+            var poly_line_aa630447bf749d1bb06da1756869db4c = L.polyline(
+                [[-20.296523, -40.297333], [-20.296584, -40.297322], [-20.29663, -40.297287], [-20.296856, -40.296995], [-20.297079, -40.296705], [-20.297113, -40.296693], [-20.29714, -40.296668], [-20.297156, -40.296635], [-20.297159, -40.296599], [-20.29715, -40.296564], [-20.297677, -40.29577], [-20.298301, -40.294786], [-20.298264, -40.294773], [-20.298234, -40.294746], [-20.298213, -40.294699], [-20.298214, -40.294647], [-20.298238, -40.294601], [-20.298058, -40.294505], [-20.297668, -40.294218], [-20.297359, -40.29397], [-20.29737, -40.293938], [-20.297371, -40.293904], [-20.297361, -40.293872], [-20.297343, -40.293845], [-20.297317, -40.293825], [-20.297285, -40.293815], [-20.297252, -40.293816], [-20.297221, -40.29383], [-20.297196, -40.293853], [-20.297002, -40.293704]],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "orange", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 5}
+            ).addTo(map_5cef3760d38e4654159f999479649b9c);
+        
+    
+            var marker_de187cbedb49b1fd70a365d1491611ae = L.marker(
+                [-20.296091913223467, -40.290714724039134],
+                {}
+            ).addTo(map_5cef3760d38e4654159f999479649b9c);
+        
+    
+            var icon_97cbb67de28327845eac77f295ffc9f1 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_de187cbedb49b1fd70a365d1491611ae.setIcon(icon_97cbb67de28327845eac77f295ffc9f1);
+        
+    
+        var popup_6de02a9f8fbdf22fb13e4b86028ec2bc = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_160ad0d2a84ae7753645ffafb482c27d = $(`<div id="html_160ad0d2a84ae7753645ffafb482c27d" style="width: 100.0%; height: 100.0%;"><div style="text-align: center; width: 300px;"><strong style="font-size: 16px;">Coco Bambu <br> Instagram: <a href='https://www.instagram.com/cocobambues'>@cocobambues</a> <br> Booking only via Instagram</strong></div></div>`)[0];
+                popup_6de02a9f8fbdf22fb13e4b86028ec2bc.setContent(html_160ad0d2a84ae7753645ffafb482c27d);
+            
+        
+
+        marker_de187cbedb49b1fd70a365d1491611ae.bindPopup(popup_6de02a9f8fbdf22fb13e4b86028ec2bc)
+        ;
+
+        
+    
+    
+            var poly_line_2de1ee0dfee3b5ea2c9a9be217e2ba8e = L.polyline(
+                [[-20.296523, -40.297333], [-20.296584, -40.297322], [-20.29663, -40.297287], [-20.296856, -40.296995], [-20.296993, -40.296666], [-20.296978, -40.29663], [-20.296976, -40.296591], [-20.296989, -40.296555], [-20.295805, -40.295718], [-20.295367, -40.294877], [-20.295352, -40.294678], [-20.295348, -40.294626], [-20.29536, -40.294589], [-20.2955, -40.294332], [-20.295556, -40.294259], [-20.295727, -40.293982], [-20.296189, -40.293182], [-20.296169, -40.29316], [-20.296159, -40.293131], [-20.296164, -40.293101], [-20.29618, -40.293076], [-20.295298, -40.292528], [-20.295235, -40.292451], [-20.295248, -40.292422], [-20.295251, -40.292389], [-20.295244, -40.292357], [-20.295227, -40.29233], [-20.295202, -40.292311], [-20.29566, -40.291614], [-20.295648, -40.291576], [-20.295652, -40.291536], [-20.295672, -40.291502], [-20.295698, -40.291483], [-20.295728, -40.291476], [-20.295758, -40.291479], [-20.295785, -40.291495], [-20.296217, -40.290804]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 5}
+            ).addTo(map_5cef3760d38e4654159f999479649b9c);
+        
+    
+            var marker_9955541546b8a465142598ee6a9766b9 = L.marker(
+                [-20.29763451886119, -40.29404307970616],
+                {}
+            ).addTo(map_5cef3760d38e4654159f999479649b9c);
+        
+    
+            var icon_6a3be3aaa66d2c018d06bee46b2f3f8e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "purple", "prefix": "glyphicon"}
+            );
+            marker_9955541546b8a465142598ee6a9766b9.setIcon(icon_6a3be3aaa66d2c018d06bee46b2f3f8e);
+        
+    
+        var popup_6438dce3b44fa6a7b578a78ccfe52d26 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_06f9c40e6653f4d35429548e25b5db76 = $(`<div id="html_06f9c40e6653f4d35429548e25b5db76" style="width: 100.0%; height: 100.0%;"><div style="text-align: center; width: 300px;"><strong style="font-size: 16px;">O Quintal Parrilla Bar <br> Phone: <a href='tel:+552730241340'>(27) 3024-1340</a> <br> Instagram: <a href='https://www.instagram.com/oquintalparrillabar'>@oquintalparrillabar</a></strong></div></div>`)[0];
+                popup_6438dce3b44fa6a7b578a78ccfe52d26.setContent(html_06f9c40e6653f4d35429548e25b5db76);
+            
+        
+
+        marker_9955541546b8a465142598ee6a9766b9.bindPopup(popup_6438dce3b44fa6a7b578a78ccfe52d26)
+        ;
+
+        
+    
+    
+            var poly_line_c260b4cd3bc8d06b630c935e5ace221d = L.polyline(
+                [[-20.296523, -40.297333], [-20.296584, -40.297322], [-20.29663, -40.297287], [-20.296856, -40.296995], [-20.297079, -40.296705], [-20.297113, -40.296693], [-20.29714, -40.296668], [-20.297156, -40.296635], [-20.297159, -40.296599], [-20.29715, -40.296564], [-20.297677, -40.29577], [-20.298301, -40.294786], [-20.298264, -40.294773], [-20.298234, -40.294746], [-20.298213, -40.294699], [-20.298214, -40.294647], [-20.298238, -40.294601], [-20.298058, -40.294505], [-20.297568, -40.294138]],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "purple", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 5}
+            ).addTo(map_5cef3760d38e4654159f999479649b9c);
+        
+    
+            var marker_6ea1fdb20af91b79b45fdf25f3d3148a = L.marker(
+                [-20.294769666870323, -40.29298388944881],
+                {}
+            ).addTo(map_5cef3760d38e4654159f999479649b9c);
+        
+    
+            var icon_20d68aa9f6db9932baea94eb4a44e2a1 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_6ea1fdb20af91b79b45fdf25f3d3148a.setIcon(icon_20d68aa9f6db9932baea94eb4a44e2a1);
+        
+    
+        var popup_bbf57b5d754647d76696355204b1b19c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_23f3feae3bac0d4cdf1571eadd18a2cd = $(`<div id="html_23f3feae3bac0d4cdf1571eadd18a2cd" style="width: 100.0%; height: 100.0%;"><div style="text-align: center; width: 300px;"><strong style="font-size: 16px;">Cantina D'Itália <br> Instagram: <a href='https://www.instagram.com/cantina.ditalia'>@cantina.ditalia</a> <br> Booking only via Instagram</strong></div></div>`)[0];
+                popup_bbf57b5d754647d76696355204b1b19c.setContent(html_23f3feae3bac0d4cdf1571eadd18a2cd);
+            
+        
+
+        marker_6ea1fdb20af91b79b45fdf25f3d3148a.bindPopup(popup_bbf57b5d754647d76696355204b1b19c)
+        ;
+
+        
+    
+    
+            var poly_line_0a64a05cc2eadb1a19f10654bd3959dc = L.polyline(
+                [[-20.296523, -40.297333], [-20.296584, -40.297322], [-20.29663, -40.297287], [-20.296856, -40.296995], [-20.296993, -40.296666], [-20.296978, -40.29663], [-20.296976, -40.296591], [-20.296989, -40.296555], [-20.295805, -40.295718], [-20.295367, -40.294877], [-20.295352, -40.294678], [-20.295348, -40.294626], [-20.29536, -40.294589], [-20.2955, -40.294332], [-20.294421, -40.293541], [-20.294771, -40.292985]],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 5}
+            ).addTo(map_5cef3760d38e4654159f999479649b9c);
+        
+    
+            var marker_ec313bb47c3e9a9c925387c66e342d49 = L.marker(
+                [-20.293907282621966, -40.291403981735755],
+                {}
+            ).addTo(map_5cef3760d38e4654159f999479649b9c);
+        
+    
+            var icon_2b217beca3d1fa19b36974303a81e24a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_ec313bb47c3e9a9c925387c66e342d49.setIcon(icon_2b217beca3d1fa19b36974303a81e24a);
+        
+    
+        var popup_7ec1f489978d1907b6b8c24902b9e7a2 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_3ee92282dbd75dee6f0abce61cad194d = $(`<div id="html_3ee92282dbd75dee6f0abce61cad194d" style="width: 100.0%; height: 100.0%;"><div style="text-align: center; width: 300px;"><strong style="font-size: 16px;">Canto do Vinho <br> Phone: <a href='tel:+5527992547295'>(27) 99254-7295</a> <br> Instagram: <a href='https://www.instagram.com/cantodovinho/'>@cantodovinho</a></strong></div></div>`)[0];
+                popup_7ec1f489978d1907b6b8c24902b9e7a2.setContent(html_3ee92282dbd75dee6f0abce61cad194d);
+            
+        
+
+        marker_ec313bb47c3e9a9c925387c66e342d49.bindPopup(popup_7ec1f489978d1907b6b8c24902b9e7a2)
+        ;
+
+        
+    
+    
+            var poly_line_fb8684f5b56e64952ca2f7df9e880f6e = L.polyline(
+                [[-20.296523, -40.297333], [-20.296584, -40.297322], [-20.29663, -40.297287], [-20.296856, -40.296995], [-20.296993, -40.296666], [-20.296978, -40.29663], [-20.296976, -40.296591], [-20.296989, -40.296555], [-20.295805, -40.295718], [-20.295367, -40.294877], [-20.295352, -40.294678], [-20.295348, -40.294626], [-20.29536, -40.294589], [-20.2955, -40.294332], [-20.294421, -40.293541], [-20.295099, -40.292462], [-20.295077, -40.292422], [-20.295076, -40.292376], [-20.295104, -40.292325], [-20.293895, -40.291423]],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "green", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 5}
+            ).addTo(map_5cef3760d38e4654159f999479649b9c);
+        
+    
+            var marker_b810a5221bd779b69c363306cfdb5e70 = L.marker(
+                [-20.295883614239347, -40.29129993891012],
+                {}
+            ).addTo(map_5cef3760d38e4654159f999479649b9c);
+        
+    
+            var icon_b8ce123eadac389e6fad29f3e73046b5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_b810a5221bd779b69c363306cfdb5e70.setIcon(icon_b8ce123eadac389e6fad29f3e73046b5);
+        
+    
+        var popup_7dd6522545cfc4b696fcf5613e708920 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_18adcea89ec2446ade1c1694c084d290 = $(`<div id="html_18adcea89ec2446ade1c1694c084d290" style="width: 100.0%; height: 100.0%;"><div style="text-align: center; width: 300px;"><strong style="font-size: 16px;">Partido Alto <br> Phone: <a href='tel:+552721428559'>(27) 2142-8559</a> <br> Instagram: <a href='https://www.instagram.com/partidoaltorestaurante/'>@partidoaltorestaurante</a></strong></div></div>`)[0];
+                popup_7dd6522545cfc4b696fcf5613e708920.setContent(html_18adcea89ec2446ade1c1694c084d290);
+            
+        
+
+        marker_b810a5221bd779b69c363306cfdb5e70.bindPopup(popup_7dd6522545cfc4b696fcf5613e708920)
+        ;
+
+        
+    
+    
+            var poly_line_29ea481a81fbbb574595ee830a7bca6b = L.polyline(
+                [[-20.296523, -40.297333], [-20.296584, -40.297322], [-20.29663, -40.297287], [-20.296856, -40.296995], [-20.296993, -40.296666], [-20.296978, -40.29663], [-20.296976, -40.296591], [-20.296989, -40.296555], [-20.295805, -40.295718], [-20.295367, -40.294877], [-20.295352, -40.294678], [-20.295348, -40.294626], [-20.29536, -40.294589], [-20.2955, -40.294332], [-20.295556, -40.294259], [-20.295727, -40.293982], [-20.296189, -40.293182], [-20.296169, -40.29316], [-20.296159, -40.293131], [-20.296164, -40.293101], [-20.29618, -40.293076], [-20.295298, -40.292528], [-20.295235, -40.292451], [-20.295248, -40.292422], [-20.295251, -40.292389], [-20.295244, -40.292357], [-20.295227, -40.29233], [-20.295202, -40.292311], [-20.29566, -40.291614], [-20.295648, -40.291576], [-20.295652, -40.291536], [-20.295672, -40.291502], [-20.295698, -40.291483], [-20.295728, -40.291476], [-20.295758, -40.291479], [-20.295785, -40.291495], [-20.2959, -40.291312]],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "orange", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 5}
+            ).addTo(map_5cef3760d38e4654159f999479649b9c);
+        
+    
+            var marker_f833ca2ecc36d36a0d035a9202a307fa = L.marker(
+                [-20.294536209619093, -40.292130136661704],
+                {}
+            ).addTo(map_5cef3760d38e4654159f999479649b9c);
+        
+    
+            var icon_358989f06ee9e784857ef486cc95ceaf = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_f833ca2ecc36d36a0d035a9202a307fa.setIcon(icon_358989f06ee9e784857ef486cc95ceaf);
+        
+    
+        var popup_d4963a6f5176138d8587528f3950636e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_31e2982b276c9eb8e66200294721a31d = $(`<div id="html_31e2982b276c9eb8e66200294721a31d" style="width: 100.0%; height: 100.0%;"><div style="text-align: center; width: 300px;"><strong style="font-size: 16px;">Enseada Geraldinho <br> Phone: <a href='tel:+552733246360'>(27) 3324-6360</a> <br> Instagram: <a href='https://www.instagram.com/restaurante_enseada_geraldinho/'>@restaurante_enseada_geraldinho</a></strong></div></div>`)[0];
+                popup_d4963a6f5176138d8587528f3950636e.setContent(html_31e2982b276c9eb8e66200294721a31d);
+            
+        
+
+        marker_f833ca2ecc36d36a0d035a9202a307fa.bindPopup(popup_d4963a6f5176138d8587528f3950636e)
+        ;
+
+        
+    
+    
+            var poly_line_f21bb28777d54a1c84332b50871e15d4 = L.polyline(
+                [[-20.296523, -40.297333], [-20.296584, -40.297322], [-20.29663, -40.297287], [-20.296856, -40.296995], [-20.296993, -40.296666], [-20.296978, -40.29663], [-20.296976, -40.296591], [-20.296989, -40.296555], [-20.295805, -40.295718], [-20.295367, -40.294877], [-20.295352, -40.294678], [-20.295348, -40.294626], [-20.29536, -40.294589], [-20.2955, -40.294332], [-20.294421, -40.293541], [-20.294472, -40.293462], [-20.2941, -40.2932], [-20.294027, -40.293093], [-20.293888, -40.292973], [-20.294247, -40.292506], [-20.294494, -40.292101]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 5}
+            ).addTo(map_5cef3760d38e4654159f999479649b9c);
+        
+</script>
+</html>
